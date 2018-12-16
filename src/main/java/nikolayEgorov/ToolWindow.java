@@ -44,7 +44,11 @@ public class ToolWindow implements ToolWindowFactory,ReasonListener {
 
     @Override
     public void resetReasons() {
-
+        if(console==null){
+            computeNullCons();
+            return;
+        }
+        console.clear();
     }
 
     @Override
