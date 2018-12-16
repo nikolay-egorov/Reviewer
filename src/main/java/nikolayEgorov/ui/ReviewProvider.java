@@ -2,6 +2,7 @@ package nikolayEgorov.ui;
 
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.*;
+import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.Nullable;
 
 @State(
@@ -22,6 +23,6 @@ public class ReviewProvider implements PersistentStateComponent<ReviewProvider>,
 
     @Override
     public void loadState(ReviewProvider state) {
-
+        XmlSerializerUtil.copyBean(state, this);
     }
 }
