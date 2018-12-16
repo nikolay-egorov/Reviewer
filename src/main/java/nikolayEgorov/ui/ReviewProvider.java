@@ -1,14 +1,12 @@
 package nikolayEgorov.ui;
 
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.ApplicationComponent;
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
+import com.intellij.openapi.components.*;
 import org.jetbrains.annotations.Nullable;
 
 @State(
-        name = "ReviewProvider"
+        name = "ReviewProvider",
+        storages = {@Storage(id = "other", file = StoragePathMacros.APP_CONFIG + "/review.xml")}
 )
 public class ReviewProvider implements PersistentStateComponent<ReviewProvider>, ApplicationComponent {
 

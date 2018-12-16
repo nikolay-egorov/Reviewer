@@ -17,7 +17,7 @@ public class ToolWindow implements ToolWindowFactory,ReasonListener {
 
     public ToolWindow() {
         this.actionManager = ActionManager.getInstance();
-        //TO REGISTER Listeners
+        //TODO: REGISTER Listeners
 
     }
 
