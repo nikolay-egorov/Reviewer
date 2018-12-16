@@ -3,7 +3,9 @@ package nikolayEgorov;
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import nikolayEgorov.listenInterfaces.ReasonListener;
 import nikolayEgorov.processing.StatusBarInfo;
@@ -53,6 +55,20 @@ public class ToolWindow implements ToolWindowFactory,ReasonListener {
 
     @Override
     public String getGeneratedReasons() {
+        if(console==null){
+            computeNullCons();
+            return null;
+        }
+
+        final Object editor=console.getEditor();
+        if(editor instanceof Editor){
+            final String text =((Editor) editor).getDocument().getText();
+            if(text!=null){
+                return text.replaceAll(FileUtil.toSystemIndependentName(project.getBasePath()),"");
+            }
+        }
         return null;
     }
+
+
 }
