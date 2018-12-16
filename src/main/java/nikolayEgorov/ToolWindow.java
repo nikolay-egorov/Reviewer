@@ -13,7 +13,7 @@ public class ToolWindow implements ToolWindowFactory {
     public ToolWindow() {
         this.actionManager = ActionManager.getInstance();
         //TO REGISTER Listeners
-        //
+
     }
 
 

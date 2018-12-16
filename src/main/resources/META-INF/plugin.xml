@@ -19,7 +19,7 @@
         <toolWindow id="Reviewer" secondary="true" anchor="bottom"
                     factoryClass="nikolayEgorov.ToolWindow">
         </toolWindow>
-    </extensions>
+     </extensions>
 
     <actions>
         <!-- Add your actions here -->
@@ -28,4 +28,10 @@
         <action id="reviewer.clear_reasons" class="nikolayEgorov.actions.ClearReasonsAction" text="Clear Reason"
                 description="Clears all reasons"/>
     </actions>
+    <application-components>
+        <component>
+            <implementation-class>nikolayEgorov.ui.ReviewProvider</implementation-class>
+            <interface-class>nikolayEgorov.ui.ReviewProvider</interface-class>
+        </component>
+    </application-components>
 </idea-plugin>
