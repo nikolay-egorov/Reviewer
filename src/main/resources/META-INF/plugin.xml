@@ -27,7 +27,15 @@
                 description="Adds a new review  reason"/>
         <action id="reviewer.clear_reasons" class="nikolayEgorov.actions.ClearReasonsAction" text="Clear Reason"
                 description="Clears all reasons"/>
+        <group id="reviewer" text="Reviewer Helper" description="Reviewer Plugin">
+            <reference id="reviewer.add_reason"/>
+            <reference id="reviewer.clear_reasons"/>
+        </group>
+        <group id="reviewer.toolbar_acts">
+            <reference id="reviewer.clear_reasons"/>
+        </group>
     </actions>
+
     <application-components>
         <component>
             <implementation-class>nikolayEgorov.ui.ReviewProvider</implementation-class>

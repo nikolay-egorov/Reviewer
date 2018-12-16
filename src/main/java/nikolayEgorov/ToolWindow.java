@@ -3,6 +3,7 @@ package nikolayEgorov;
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.actionSystem.ActionToolbar;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.io.FileUtil;
@@ -10,6 +11,8 @@ import com.intellij.openapi.wm.ToolWindowFactory;
 import nikolayEgorov.listenInterfaces.ReasonListener;
 import nikolayEgorov.processing.StatusBarInfo;
 import org.jetbrains.annotations.NotNull;
+
+import javax.swing.*;
 
 public class ToolWindow implements ToolWindowFactory,ReasonListener {
 
@@ -67,6 +70,11 @@ public class ToolWindow implements ToolWindowFactory,ReasonListener {
                 return text.replaceAll(FileUtil.toSystemIndependentName(project.getBasePath()),"");
             }
         }
+        return null;
+    }
+
+
+    private ActionToolbar initActionBar(final JPanel aJPanel) {
         return null;
     }
 
