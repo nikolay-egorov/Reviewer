@@ -10,10 +10,11 @@ import javax.swing.*;
 public class Reviewer implements Configurable {
     private JPanel generalPanel;
     private JTextArea formatArea;
+    private final ReviewProvider reviewProvider;
 
 
     public Reviewer(){
-
+        reviewProvider=ReviewProvider.getInstance();
     }
 
     @Nls
@@ -31,12 +32,12 @@ public class Reviewer implements Configurable {
 
     @Override
     public boolean isModified() {
-        return false;
+        return  reviewProvider.OUTPUT_REG_FORM.equals(formatArea.getText()) ? false : true;
     }
 
     @Override
     public void apply() throws ConfigurationException {
-
+        reviewProvider.OUTPUT_REG_FORM=formatArea.getText();
     }
 
     private void createUIComponents() {
@@ -46,6 +47,6 @@ public class Reviewer implements Configurable {
 
     @Override
     public void reset() {
-
+        formatArea.setText(reviewProvider.OUTPUT_REG_FORM);
     }
 }
