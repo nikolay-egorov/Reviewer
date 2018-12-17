@@ -2,25 +2,31 @@ package nikolayEgorov;
 
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.execution.ui.ConsoleViewContentType;
+import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.ActionManager;
+import com.intellij.openapi.actionSystem.ActionPlaces;
 import com.intellij.openapi.actionSystem.ActionToolbar;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.io.FileUtil;
+import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
+import com.intellij.ui.content.Content;
+import com.intellij.ui.content.ContentFactory;
 import nikolayEgorov.listenInterfaces.ReasonListener;
 import nikolayEgorov.processing.StatusBarInfo;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class ToolWindow implements ToolWindowFactory,ReasonListener {
+public class myToolWindow implements ToolWindowFactory,ReasonListener {
 
     private final ActionManager actionManager;
     private Project project;
     private ConsoleViewImpl console;
 
-    public ToolWindow() {
+    public myToolWindow() {
         this.actionManager = ActionManager.getInstance();
         //TODO: REGISTER Listeners
 
@@ -30,6 +36,8 @@ public class ToolWindow implements ToolWindowFactory,ReasonListener {
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull com.intellij.openapi.wm.ToolWindow toolWindow) {
         this.project = project;
+        initAll(toolWindow);
+        //TODO add console!
     }
 
     @Override
@@ -73,9 +81,21 @@ public class ToolWindow implements ToolWindowFactory,ReasonListener {
         return null;
     }
 
+    private void initAll(final ToolWindow toolWindow){
+        final ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
+        final Content content= contentFactory.createContent(initMainPanel(),"test",false);
+        toolWindow.getContentManager().addContent(content);
+    }
 
-    private ActionToolbar initActionBar(final JPanel aJPanel) {
-        return null;
+
+    private JPanel initMainPanel(){
+        final JPanel jPanel = new JPanel(new BorderLayout());
+        final ActionToolbar actionToolbar = actionManager.createActionToolbar(ActionPlaces.UNKNOWN, (ActionGroup)actionManager.getAction(
+                "reviewer.toolbar_acts"), false);
+        actionToolbar.setTargetComponent(jPanel);
+        jPanel.add(actionToolbar.getComponent(), BorderLayout.WEST);
+        jPanel.add(console.getComponent(), BorderLayout.CENTER);
+        return jPanel;
     }
 
 

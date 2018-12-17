@@ -17,7 +17,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
         <toolWindow id="Reviewer" secondary="true" anchor="bottom"
-                    factoryClass="nikolayEgorov.ToolWindow">
+                    factoryClass="nikolayEgorov.myToolWindow">
         </toolWindow>
      </extensions>
 
