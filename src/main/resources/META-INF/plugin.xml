@@ -16,10 +16,10 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
-        <toolWindow id="Reviewer" secondary="true" anchor="bottom"
+        <toolWindow id="Reviewer"  secondary="true" icon="/images/icon_1.png" anchor="bottom"
                     factoryClass="nikolayEgorov.myToolWindow">
         </toolWindow>
-        <applicationConfigurable instance="nikolayEgorov.ui.Reviewer"></applicationConfigurable>
+        <applicationConfigurable instance="nikolayEgorov.ui.Reviewer"/>
     </extensions>
 
     <actions>
