@@ -19,7 +19,8 @@
         <toolWindow id="Reviewer" secondary="true" anchor="bottom"
                     factoryClass="nikolayEgorov.myToolWindow">
         </toolWindow>
-     </extensions>
+        <applicationConfigurable instance="nikolayEgorov.ui.Reviewer"></applicationConfigurable>
+    </extensions>
 
     <actions>
         <!-- Add your actions here -->

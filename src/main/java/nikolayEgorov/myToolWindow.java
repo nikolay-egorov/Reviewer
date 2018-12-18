@@ -1,5 +1,7 @@
 package nikolayEgorov;
 
+import com.intellij.execution.filters.HyperlinkInfo;
+import com.intellij.execution.filters.RegexpFilter;
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.execution.ui.ConsoleViewContentType;
 import com.intellij.openapi.actionSystem.*;
@@ -8,12 +10,14 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
+import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import nikolayEgorov.listenInterfaces.Interaction;
 import nikolayEgorov.listenInterfaces.ReasonListener;
 import nikolayEgorov.processing.StatusBarInfo;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,33 +41,47 @@ public class myToolWindow implements ToolWindowFactory,ReasonListener {
             ((Interaction) action).setReasonListener(this);
     }
 
+    private void initConsole(){
+        console=new ConsoleViewImpl(project, GlobalSearchScope.allScope(project),true,false);
+        console.addMessageFilter(new RegexpFilter(project, RegexpFilter.FILE_PATH_MACROS + ":" + RegexpFilter.LINE_MACROS) {
+            @Nullable
+            @Override
+            protected HyperlinkInfo createOpenFileHyperlink(final String fileName, final int line, final int column) {
+                return super.createOpenFileHyperlink(fileName, line, column);
+            }
+
+        });
+    }
+
+
 
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull com.intellij.openapi.wm.ToolWindow toolWindow) {
         this.project = project;
+        initConsole();
         initAll(toolWindow);
-        //TODO add console!
+
     }
 
     @Override
     public void AddReason(String Reason) {
         if (console == null) {
-            computeNullCons();
+            proceedNullCons();
             return;
         }
         console.print(Reason + "\n", ConsoleViewContentType.NORMAL_OUTPUT);
 
     }
 
-    private void computeNullCons() {
-        StatusBarInfo.setStatusBarInfo(project, "The action cannot be completed dut to null console");
+    private void proceedNullCons() {
+        StatusBarInfo.setStatusBarInfo(project, "The action cannot be completed due to null console");
     }
 
 
     @Override
     public void resetReasons() {
         if(console==null){
-            computeNullCons();
+            proceedNullCons();
             return;
         }
         console.clear();
@@ -72,12 +90,12 @@ public class myToolWindow implements ToolWindowFactory,ReasonListener {
     @Override
     public String getGeneratedReasons() {
         if(console==null){
-            computeNullCons();
+            proceedNullCons();
             return null;
         }
 
         final Object editor=console.getEditor();
-        if(editor instanceof Editor){
+        if(editor !=null){
             final String text =((Editor) editor).getDocument().getText();
             if(text!=null){
                 return text.replaceAll(FileUtil.toSystemIndependentName(project.getBasePath()),"");
@@ -88,7 +106,7 @@ public class myToolWindow implements ToolWindowFactory,ReasonListener {
 
     private void initAll(final ToolWindow toolWindow){
         final ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
-        final Content content= contentFactory.createContent(initMainPanel(),"test",false);
+        final Content content= contentFactory.createContent(initMainPanel(),"",false);
         toolWindow.getContentManager().addContent(content);
     }
 
