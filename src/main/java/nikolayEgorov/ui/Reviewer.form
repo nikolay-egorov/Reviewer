@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="nikolayEgorov.ui.Reviewer">
+  <grid id="27dc6" binding="generalPanel" custom-create="true" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="5" left="5" bottom="5" right="5"/>
+    <constraints>
+      <xy x="20" y="20" width="2432" height="4976"/>
+    </constraints>
+    <properties>
+      <autoscrolls value="false"/>
+    </properties>
+    <border type="none">
+      <font/>
+    </border>
+    <children>
+      <component id="47a04" class="javax.swing.JTextArea">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="100"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font name="Lucida Sans Typewriter" size="20" style="0"/>
+          <lineWrap value="false"/>
+          <text value="Here you can specify the format of reject resons. Feel free to use following variables :&#10;%1$s - class/file name. %2$s - selested variable/element name. %3$s - line number. %4$s - provided comment"/>
+        </properties>
+      </component>
+      <scrollpane id="76c6b">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="e5409" class="javax.swing.JTextArea" binding="formatArea" custom-create="true">
+            <constraints/>
+            <properties>
+              <lineWrap value="false"/>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="6d247" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Please specify format"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

@@ -17,8 +17,9 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
         <toolWindow id="Reviewer" secondary="true" anchor="bottom"
-                    factoryClass="nikolayEgorov.ToolWindow">
+                    factoryClass="nikolayEgorov.myToolWindow">
         </toolWindow>
+        <applicationConfigurable instance="nikolayEgorov.ui.Reviewer"></applicationConfigurable>
     </extensions>
 
     <actions>
@@ -27,5 +28,19 @@
                 description="Adds a new review  reason"/>
         <action id="reviewer.clear_reasons" class="nikolayEgorov.actions.ClearReasonsAction" text="Clear Reason"
                 description="Clears all reasons"/>
+        <group id="reviewer" text="Reviewer Helper" description="Reviewer Plugin">
+            <reference id="reviewer.add_reason"/>
+            <reference id="reviewer.clear_reasons"/>
+        </group>
+        <group id="reviewer.toolbar_acts">
+            <reference id="reviewer.clear_reasons"/>
+        </group>
     </actions>
+
+    <application-components>
+        <component>
+            <implementation-class>nikolayEgorov.ui.ReviewProvider</implementation-class>
+            <interface-class>nikolayEgorov.ui.ReviewProvider</interface-class>
+        </component>
+    </application-components>
 </idea-plugin>
