@@ -2,10 +2,7 @@ package nikolayEgorov;
 
 import com.intellij.execution.impl.ConsoleViewImpl;
 import com.intellij.execution.ui.ConsoleViewContentType;
-import com.intellij.openapi.actionSystem.ActionGroup;
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.ActionPlaces;
-import com.intellij.openapi.actionSystem.ActionToolbar;
+import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.io.FileUtil;
@@ -13,6 +10,7 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
+import nikolayEgorov.listenInterfaces.Interaction;
 import nikolayEgorov.listenInterfaces.ReasonListener;
 import nikolayEgorov.processing.StatusBarInfo;
 import org.jetbrains.annotations.NotNull;
@@ -29,7 +27,14 @@ public class myToolWindow implements ToolWindowFactory,ReasonListener {
     public myToolWindow() {
         this.actionManager = ActionManager.getInstance();
         //TODO: REGISTER Listeners
+        registerActionAsListener("review.add_reason");
+        registerActionAsListener("review.clear_reasons");
+    }
 
+    private void registerActionAsListener(final String anAction){
+        final AnAction action = actionManager.getAction(anAction);
+        if(action instanceof Interaction)
+            ((Interaction) action).setReasonListener(this);
     }
 
 
