@@ -6,6 +6,11 @@ import nikolayEgorov.listenInterfaces.Interaction;
 import nikolayEgorov.listenInterfaces.ReasonListener;
 import nikolayEgorov.processing.ReasonFormatter;
 
+/**
+ * AnAction class to ClearAll Reasons
+ * synched with Interaction
+ */
+
 public class ClearReasonsAction extends AnAction implements Interaction {
 
      private ReasonListener reasonListener;
@@ -21,8 +26,14 @@ public class ClearReasonsAction extends AnAction implements Interaction {
         reasonListener = aReasonListener;
     }
 
+
+    /**
+    update method; shows element on layout only when reasons are exist
+     */
     @Override
     public void update(final AnActionEvent aActionEvent) {
-        //TODO: implement update
+        final String reasons = reasonListener.getGeneratedReasons();
+        aActionEvent.getPresentation().setEnabled(reasons != null && !reasons.isEmpty());
+
     }
 }

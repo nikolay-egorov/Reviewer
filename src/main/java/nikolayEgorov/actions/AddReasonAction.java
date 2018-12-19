@@ -6,6 +6,11 @@ import nikolayEgorov.listenInterfaces.Interaction;
 import nikolayEgorov.listenInterfaces.ReasonListener;
 import nikolayEgorov.processing.ReasonFormatter;
 
+/**
+ * AnAction class to AddReason
+ * synched with Interaction
+ */
+
 public class AddReasonAction extends AnAction implements Interaction{
 
     private final ReasonFormatter reasonFormatter;
@@ -25,6 +30,11 @@ public class AddReasonAction extends AnAction implements Interaction{
         reasonListener=aReasonListener;
     }
 
+
+    /**
+     * sets UI element enabled to show  
+     * @param anEvent
+     */
     @Override
     public void update(final AnActionEvent anEvent) {
         anEvent.getPresentation().setEnabled(true);

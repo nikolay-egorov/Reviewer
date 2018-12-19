@@ -6,6 +6,11 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Main extention-point all-in-one impl and interface;
+ * implements PersistentStateComponent for storing data through @Storage
+ */
+
 @State(
         name = "ReviewProvider",
         storages = {@Storage(id = "other", file = StoragePathMacros.APP_CONFIG + "/review.xml")}
@@ -34,5 +39,14 @@ public class ReviewProvider implements PersistentStateComponent<ReviewProvider>,
     @Override
     public String getComponentName() {
         return "ReviewProvider";
+    }
+
+    @Override
+    public void initComponent() {
+    }
+
+
+    @Override
+    public void disposeComponent() {
     }
 }
