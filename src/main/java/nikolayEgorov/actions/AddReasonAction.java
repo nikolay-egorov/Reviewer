@@ -32,7 +32,7 @@ public class AddReasonAction extends AnAction implements Interaction{
 
 
     /**
-     * sets UI element enabled to show  
+     * sets UI element enabled to show
      * @param anEvent
      */
     @Override

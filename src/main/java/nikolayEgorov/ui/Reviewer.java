@@ -7,6 +7,10 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
+/**
+ * base form for setting up a Reason in this plugin in a specific format
+ */
+
 public class Reviewer implements Configurable {
     private JPanel generalPanel;
     private JTextArea formatArea;
@@ -27,7 +31,8 @@ public class Reviewer implements Configurable {
     @Nullable
     @Override
     public JComponent createComponent() {
-         return generalPanel;
+        reset();
+        return generalPanel;
     }
 
     @Override
