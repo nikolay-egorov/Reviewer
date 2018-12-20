@@ -17,10 +17,11 @@ public class myDialogMessage extends DialogWrapper{
 
         textField = new JTextArea();
         panel=new JPanel();
-        textField.setPreferredSize(new Dimension(200, 100));
+        textField.setPreferredSize(new Dimension(200, 200));
         textField.setLineWrap(true);
         panel.add(textField, BorderLayout.CENTER);
         init();
+        pack();
     }
 
     @Nullable
