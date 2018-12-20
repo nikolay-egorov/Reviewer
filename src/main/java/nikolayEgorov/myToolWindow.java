@@ -30,8 +30,8 @@ public class myToolWindow implements ToolWindowFactory,ReasonListener {
 
     public myToolWindow() {
         this.actionManager = ActionManager.getInstance();
-        registerActionAsListener("review.add_reason");
-        registerActionAsListener("review.clear_reasons");
+        registerActionAsListener("reviewer.add_reason");
+        registerActionAsListener("reviewer.clear_reasons");
     }
 
     private void registerActionAsListener(final String anAction){
