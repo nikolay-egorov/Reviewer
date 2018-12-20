@@ -14,28 +14,32 @@
     <depends>com.intellij.modules.lang</depends>
     -->
 
-    <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
-        <toolWindow id="Reviewer" secondary="true" anchor="bottom"
-                    factoryClass="nikolayEgorov.myToolWindow">
-        </toolWindow>
-        <applicationConfigurable instance="nikolayEgorov.ui.Reviewer"></applicationConfigurable>
-    </extensions>
 
     <actions>
         <!-- Add your actions here -->
-        <action id="reviewer.add_reason" class="nikolayEgorov.actions.AddReasonAction" text="Add  Reason"
+        <action id="reviewer.add_reason" icon="/images/add.png" class="nikolayEgorov.actions.AddReasonAction" text="Add  Reason"
                 description="Adds a new review  reason"/>
-        <action id="reviewer.clear_reasons" class="nikolayEgorov.actions.ClearReasonsAction" text="Clear Reason"
+        <action id="reviewer.clear_reasons" icon="/images/delete.png" class="nikolayEgorov.actions.ClearReasonsAction" text="Clear Reason"
                 description="Clears all reasons"/>
         <group id="reviewer" text="Reviewer Helper" description="Reviewer Plugin">
+            <add-to-group group-id="AnalyzeMenu" anchor="last"/>
+            <separator/>
             <reference id="reviewer.add_reason"/>
             <reference id="reviewer.clear_reasons"/>
+            <separator/>
         </group>
         <group id="reviewer.toolbar_acts">
+
             <reference id="reviewer.clear_reasons"/>
         </group>
     </actions>
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <toolWindow id="Reviewer"  secondary="true" icon="/images/icon_1.png" anchor="bottom"
+                    factoryClass="nikolayEgorov.myToolWindow">
+        </toolWindow>
+        <applicationConfigurable instance="nikolayEgorov.ui.Reviewer"/>
+    </extensions>
 
     <application-components>
         <component>

@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="generalPanel" custom-create="true" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="5" left="5" bottom="5" right="5"/>
     <constraints>
-      <xy x="20" y="20" width="2432" height="4976"/>
+      <xy x="20" y="20" width="2354" height="300"/>
     </constraints>
     <properties>
       <autoscrolls value="false"/>
@@ -23,7 +23,7 @@
           <enabled value="true"/>
           <font name="Lucida Sans Typewriter" size="20" style="0"/>
           <lineWrap value="false"/>
-          <text value="Here you can specify the format of reject resons. Feel free to use following variables :&#10;%1$s - class/file name. %2$s - selested variable/element name. %3$s - line number. %4$s - provided comment"/>
+          <text value="Here you can specify the format of reject resons. Feel free to use following variables : %1$s - class/file name. %2$s - selected variable/element name. %3$s - line number. %4$s - provided comment"/>
         </properties>
       </component>
       <scrollpane id="76c6b">

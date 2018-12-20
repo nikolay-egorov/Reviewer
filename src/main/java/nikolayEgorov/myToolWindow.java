@@ -30,9 +30,8 @@ public class myToolWindow implements ToolWindowFactory,ReasonListener {
 
     public myToolWindow() {
         this.actionManager = ActionManager.getInstance();
-        //TODO: REGISTER Listeners
-        registerActionAsListener("review.add_reason");
-        registerActionAsListener("review.clear_reasons");
+        registerActionAsListener("reviewer.add_reason");
+        registerActionAsListener("reviewer.clear_reasons");
     }
 
     private void registerActionAsListener(final String anAction){
@@ -49,7 +48,6 @@ public class myToolWindow implements ToolWindowFactory,ReasonListener {
             protected HyperlinkInfo createOpenFileHyperlink(final String fileName, final int line, final int column) {
                 return super.createOpenFileHyperlink(fileName, line, column);
             }
-
         });
     }
 
@@ -120,6 +118,8 @@ public class myToolWindow implements ToolWindowFactory,ReasonListener {
         jPanel.add(console.getComponent(), BorderLayout.CENTER);
         return jPanel;
     }
+
+
 
 
 }
