@@ -6,24 +6,39 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
+import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.util.io.FileUtil;
+import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
+import com.intellij.util.LogicalRoot;
+import com.intellij.util.LogicalRootsManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
+import com.intellij.psi.impl.source.resolve.reference.impl.providers.*;
 public class FqnMiner {
 
-    public void mineFqnAtCaret(final AnActionEvent aEvent){
+    public FqnMinerResult mineFqnAtCaret(final AnActionEvent aEvent){
         final DataContext dataContext = aEvent.getDataContext();
 
         final Project project = PlatformDataKeys.PROJECT.getData(dataContext);
         final Editor editor = PlatformDataKeys.EDITOR.getData(dataContext);
-        //TODO: PSI ??
-        final PsiElement elementAt =getElement(editor,dataContext);
 
+        final PsiElement elementAt =getElement(editor,dataContext);
+        final FqnMinerResult fqnMinerResult = getElementFqn(editor, elementAt);
+         if (editor != null && project != null) {
+            final Document document = editor.getDocument();
+            final PsiFile file = PsiDocumentManager.getInstance(project).getCachedPsiFile(document);
+            if (file != null) {
+                fqnMinerResult.setElementFqn(getFileFqn(file));
+                fqnMinerResult.setElementLine(getLineNumber(editor));
+                fqnMinerResult.setElementColumn(getColumn(editor));
+            }
+        }
+        return  fqnMinerResult;
     }
 
     /**
@@ -64,6 +79,10 @@ public class FqnMiner {
         FqnMinerResult result=getQualifiedNameFromPsi(anElement);
         if (result != null) {
             return result;
+        }
+        if (anElement instanceof PsiFile) {
+            final PsiFile file = (PsiFile)anElement;
+            result = new FqnMinerResult(FileUtil.toSystemIndependentName(getFileFqn(file)));
         }
         return result == null ? new FqnMinerResult() : result;
 
@@ -129,6 +148,29 @@ public class FqnMiner {
         }
         return null;
     }
+
+    public String getFileFqn(final PsiFile file) {
+        final VirtualFile virtualFile = file.getVirtualFile();
+        if (virtualFile == null) {
+            return file.getName();
+        }
+        final Project project = file.getProject();
+//        final LogicalRoot logicalRoot = LogicalRootsManager.getLogicalRootsManager(project).findLogicalRoot(virtualFile);
+
+        final LogicalRoot logicalRoot;
+        final PsiFileSystemItem fileSystemItem= FileReferenceHelper.getPsiFileSystemItem(PsiManager.getInstance(project),virtualFile);
+         if (fileSystemItem != null) {
+          //  final String logical = FileUtil.toSystemIndependentName(VfsUtil.virtualToIoFile(logicalRoot.getVirtualFile()).getPath());
+            return FileUtil.toSystemIndependentName(VfsUtil.virtualToIoFile(virtualFile).getPath());
+        }
+
+        final VirtualFile contentRoot = ProjectRootManager.getInstance(project).getFileIndex().getContentRootForFile(virtualFile);
+        if (contentRoot != null) {
+            return FileUtil.toSystemIndependentName(VfsUtil.virtualToIoFile(virtualFile).getAbsolutePath());
+        }
+        return FileUtil.toSystemIndependentName(virtualFile.getPath());
+    }
+
 
 
 

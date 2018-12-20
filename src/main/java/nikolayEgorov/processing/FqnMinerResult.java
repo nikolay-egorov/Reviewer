@@ -5,7 +5,7 @@ public class FqnMinerResult {
     private String elementFqn;
     private String elementName;
     private String elementLine;
-    private String elementColoumn;
+    private String elementColumn;
 
     public FqnMinerResult(final String elementFqn) {
         this.elementFqn = elementFqn;
@@ -55,4 +55,11 @@ public class FqnMinerResult {
         return elementFqn != null;
     }
 
+    public void setElementColumn(String elementColumn) {
+        this.elementColumn = elementColumn;
+    }
+
+    public String getElementColumn() {
+        return elementColumn == null ? "" : elementColumn;
+    }
 }
