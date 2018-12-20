@@ -17,7 +17,6 @@ import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
 import com.intellij.util.LogicalRoot;
-import com.intellij.util.LogicalRootsManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.psi.impl.source.resolve.reference.impl.providers.*;
