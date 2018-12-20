@@ -6,12 +6,12 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 
-public class newDialogMessage extends DialogWrapper{
+public class myDialogMessage extends DialogWrapper{
     private final JTextArea textField;
     private final JPanel panel;
 
 
-    public newDialogMessage() {
+    public myDialogMessage() {
         super(null);
         setTitle("Provide a Comment, if Any");
 

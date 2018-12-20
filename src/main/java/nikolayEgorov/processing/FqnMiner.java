@@ -19,6 +19,7 @@ import com.intellij.util.LogicalRootsManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.psi.impl.source.resolve.reference.impl.providers.*;
+
 public class FqnMiner {
 
     public FqnMinerResult mineFqnAtCaret(final AnActionEvent aEvent){
