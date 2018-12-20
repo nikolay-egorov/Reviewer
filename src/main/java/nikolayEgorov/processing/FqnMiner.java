@@ -1,6 +1,7 @@
 package nikolayEgorov.processing;
 
 import com.intellij.codeInsight.TargetElementUtil;
+import com.intellij.codeInsight.TargetElementUtilBase;
 import com.intellij.ide.actions.QualifiedNameProvider;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DataContext;
@@ -8,6 +9,7 @@ import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.util.io.FileUtil;
@@ -54,7 +56,8 @@ public class FqnMiner {
         PsiElement element = null;
         if (editor != null) {
             final PsiReference reference = TargetElementUtil.findReference(editor);
-            element=reference.getElement();
+            if(reference!=null)
+                element=reference.getElement();
         }
 
         if(element == null){
@@ -70,16 +73,29 @@ public class FqnMiner {
         if (element instanceof PsiFile && !((PsiFile)element).getViewProvider().isPhysical()) {
             return null;
         }
-
+        for (final QualifiedNameProvider provider : Extensions.getExtensions(QualifiedNameProvider.EP_NAME)) {
+            final PsiElement adjustedElement = provider.adjustElementToCopy(element);
+            if (adjustedElement != null) {
+                return adjustedElement;
+            }
+        }
 
         return element;
     }
 
-    //TODO: implement fileSearch for PSI
-    private FqnMinerResult getElementFqn(final Editor aEditor, final PsiElement anElement) {
+     private FqnMinerResult getElementFqn(final Editor aEditor, final PsiElement anElement) {
         FqnMinerResult result=getQualifiedNameFromPsi(anElement);
         if (result != null) {
             return result;
+        }
+        if (aEditor != null) {
+            final PsiReference reference = TargetElementUtil.findReference(aEditor, aEditor.getCaretModel().getOffset());
+            if (reference != null) {
+                result = getQualifiedNameFromPsi(reference.resolve());
+                if (result != null) {
+                    return result;
+                }
+            }
         }
         if (anElement instanceof PsiFile) {
             final PsiFile file = (PsiFile)anElement;
@@ -100,7 +116,6 @@ public class FqnMiner {
     private String getLineNumber(final Editor aEditor) {
         return "" + (aEditor.getCaretModel().getLogicalPosition().line + 1);
     }
-
 
     @Nullable
     private PsiElement getMemberOf(final PsiElement element) {
@@ -146,6 +161,13 @@ public class FqnMiner {
                 return new FqnMinerResult(member.getName());  // refer to member of anonymous class by simple name
             }
             return new FqnMinerResult(classFqn, member.getName());
+        }
+        else if (element instanceof PsiReference) {
+            final PsiReference reference = (PsiReference)element;
+            final PsiFile containingFile = reference.getElement().getContainingFile();
+            String fileName = getFileFqn(containingFile);
+            fileName = FileUtil.getNameWithoutExtension(fileName);
+            return new FqnMinerResult(fileName, reference.getCanonicalText());
         }
         return null;
     }
