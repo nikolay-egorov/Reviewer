@@ -19,7 +19,7 @@ public class ReasonTransferable implements Transferable {
 
     @Override
     public DataFlavor[] getTransferDataFlavors() {
-        return new DataFlavor[0];
+        return new DataFlavor[]{DataFlavor.stringFlavor};
     }
 
     @Override
@@ -29,6 +29,9 @@ public class ReasonTransferable implements Transferable {
 
     @Override
     public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+        if (isDataFlavorSupported(flavor)) {
+            return fqn;
+        }
         return null;
     }
 }
