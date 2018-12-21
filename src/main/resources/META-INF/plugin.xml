@@ -21,7 +21,7 @@
                 description="Adds a new review  reason"/>
         <action id="reviewer.clear_reasons" icon="/images/delete.png" class="nikolayEgorov.actions.ClearReasonsAction" text="Clear Reason"
                 description="Clears all reasons"/>
-        <action id="reviewer.copy_reasons" class="nikolayEgorov.actions.CopyReasonsAction"  text="Copy Reasons to Clipboard" description="Copies all the reasons to clipboard"
+        <action id="reviewer.copy_reasons" icon="/images/copy.png" class="nikolayEgorov.actions.CopyReasonsAction"  text="Copy Reasons to Clipboard" description="Copies all the reasons to clipboard"
                 />
         <group id="reviewer" text="Reviewer Helper" description="Reviewer Plugin">
             <add-to-group group-id="AnalyzeMenu" anchor="last"/>

@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 public class ReviewProvider implements PersistentStateComponent<ReviewProvider>, ApplicationComponent {
 
 
-    public String OUTPUT_REG_FORM = "{noformat}%1$s:%3$s[%2$s]{noformat}\n%4$s";
+    public String OUTPUT_REG_FORM = "***%1$s:%3$s[%2$s]***\n%4$s";
 
     public static ReviewProvider getInstance() {
         return ApplicationManager.getApplication().getComponent((ReviewProvider.class));
