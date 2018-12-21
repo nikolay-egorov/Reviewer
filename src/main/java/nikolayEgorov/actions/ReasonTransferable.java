@@ -1,5 +1,7 @@
 package nikolayEgorov.actions;
 
+import com.intellij.util.ArrayUtil;
+
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -24,7 +26,7 @@ public class ReasonTransferable implements Transferable {
 
     @Override
     public boolean isDataFlavorSupported(DataFlavor flavor) {
-        return false;
+        return ArrayUtil.find(getTransferDataFlavors(),flavor) != -1;
     }
 
     @Override
