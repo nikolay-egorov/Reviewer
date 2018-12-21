@@ -26,8 +26,8 @@
         <group id="reviewer" text="Reviewer Helper" description="Reviewer Plugin">
             <add-to-group group-id="AnalyzeMenu" anchor="last"/>
             <separator/>
-            <reference id="reviewer.copy_reasons"/>
             <reference id="reviewer.add_reason"/>
+            <reference id="reviewer.copy_reasons"/>
             <reference id="reviewer.clear_reasons"/>
              <separator/>
         </group>
