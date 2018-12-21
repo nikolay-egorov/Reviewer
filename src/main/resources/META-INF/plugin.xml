@@ -1,14 +1,12 @@
 <idea-plugin>
-    <id>nikolay-egorov.Reviewer</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
-
+    <name>Reviewer plugin</name>
+    <vendor >Nikolay Egorov</vendor>
+    <version>1.0</version>
     <description><![CDATA[
     Enter short description for your plugin here.<br>
     <em>most HTML tags may be used</em>
     ]]></description>
-
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <!-- uncomment to enable plugin in all products
     <depends>com.intellij.modules.lang</depends>
@@ -18,7 +16,9 @@
     <actions>
         <!-- Add your actions here -->
         <action id="reviewer.add_reason" icon="/images/add.png" class="nikolayEgorov.actions.AddReasonAction" text="Add  Reason"
-                description="Adds a new review  reason"/>
+                description="Adds a new review  reason">
+        <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt R"/>
+        </action>
         <action id="reviewer.clear_reasons" icon="/images/delete.png" class="nikolayEgorov.actions.ClearReasonsAction" text="Clear Reason"
                 description="Clears all reasons"/>
         <action id="reviewer.copy_reasons" icon="/images/copy.png" class="nikolayEgorov.actions.CopyReasonsAction"  text="Copy Reasons to Clipboard" description="Copies all the reasons to clipboard"
@@ -50,4 +50,5 @@
             <interface-class>nikolayEgorov.ui.ReviewProvider</interface-class>
         </component>
     </application-components>
+
 </idea-plugin>

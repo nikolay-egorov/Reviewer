@@ -1,7 +1,6 @@
 package nikolayEgorov.processing;
 
 import com.intellij.codeInsight.TargetElementUtil;
-import com.intellij.codeInsight.TargetElementUtilBase;
 import com.intellij.ide.actions.QualifiedNameProvider;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DataContext;
